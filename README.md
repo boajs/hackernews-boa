@@ -2,6 +2,8 @@
 
 HackerNews clone with [b-o-a][bouzuya/b-o-a].
 
+The original version is [vuejs/vue-hackernews](https://github.com/vuejs/vue-hackernews).
+
 ## Badges
 
 [![Circle CI][circleci-badge-url]][circleci-url]
