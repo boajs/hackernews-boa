@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "boa-core": "0.7.0",
+    "boa-handler-dom": "0.6.0",
     "firebase": "2.4.2"
   },
   "devDependencies": {
