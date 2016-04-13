@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "boa-core": "0.7.0",
+    "boa-handler-dom": "0.6.0",
     "firebase": "2.4.2"
   },
   "devDependencies": {
@@ -51,11 +52,11 @@
   "scripts": {
     "build": "tsc && webpack && npm run build-less && npm run build-html",
     "build-html": "([ -d dist ] || mkdir -p dist) && cp index.html dist",
-    "build-less": "lessc src/styles/index.less dist/index.css",
+    "build-less": "lessc src/views/index.less dist/index.css",
     "clean": "rm -rf .tmp/ dist/",
     "prepublish": "typings install && npm run clean && npm run build",
     "test": "ava",
     "watch": "npm run clean && tsc && npm run build-html && parallelshell 'tsc --watch' 'ava --watch' 'npm run watch-less' 'webpack-dev-server --config webpack.dev.config.js'",
-    "watch-less": "watch --ignoreUnreadable --wait 5 'npm run build-less' src/styles/"
+    "watch-less": "watch --ignoreUnreadable --wait 5 'npm run build-less' src/views/"
   }
 }
