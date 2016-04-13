@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "outDir": ".tmp/",
+    "rootDir": ".",
+    "sourceMap": true,
+    "target": "es5"
+  },
+  "files": [
+    "./src/client.ts",
+    "./test/index.ts",
+    "./typings/main.d.ts",
+    "./node_modules/typescript/lib/lib.es6.d.ts"
+  ]
+}
