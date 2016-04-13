@@ -1,0 +1,61 @@
+{
+  "name": "hackernews-boa",
+  "description": "HN clone with b-o-a using HN API",
+  "version": "0.0.0",
+  "author": {
+    "name": "bouzuya",
+    "email": "m@bouzuya.net",
+    "url": "http://bouzuya.net"
+  },
+  "ava": {
+    "files": [
+      ".tmp/test"
+    ],
+    "source": [
+      "!**/*.js"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/boajs/hackernews-boa/issues"
+  },
+  "dependencies": {
+    "boa-core": "0.7.0",
+    "firebase": "2.4.2"
+  },
+  "devDependencies": {
+    "ava": "0.13.0",
+    "less": "2.6.1",
+    "parallelshell": "2.0.0",
+    "proxyquire": "1.7.4",
+    "sinon": "1.17.3",
+    "source-map-loader": "0.1.5",
+    "typescript": "1.8.7",
+    "typings": "0.7.8",
+    "watch": "0.17.1",
+    "webpack": "1.12.14",
+    "webpack-dev-server": "1.14.1"
+  },
+  "homepage": "https://github.com/boajs/hackernews-boa#readme",
+  "keywords": [
+    "b-o-a",
+    "boa",
+    "boa-example"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boajs/hackernews-boa.git"
+  },
+  "scripts": {
+    "build": "tsc && webpack && npm run build-less && npm run build-html",
+    "build-html": "([ -d dist ] || mkdir -p dist) && cp index.html dist",
+    "build-less": "lessc src/styles/index.less dist/index.css",
+    "clean": "rm -rf .tmp/ dist/",
+    "prepublish": "typings install && npm run clean && npm run build",
+    "test": "ava",
+    "watch": "npm run clean && tsc && npm run build-html && parallelshell 'tsc --watch' 'ava --watch' 'npm run watch-less' 'webpack-dev-server --config webpack.dev.config.js'",
+    "watch-less": "watch --ignoreUnreadable --wait 5 'npm run build-less' src/styles/"
+  }
+}
