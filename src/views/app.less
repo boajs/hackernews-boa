@@ -1,0 +1,68 @@
+@import "./colors";
+
+.app() {
+
+  > #wrapper {
+    background-color: @bg;
+    position: relative;
+    width: 85%;
+    min-height: 80px;
+    margin: 0 auto;
+
+    > #header {
+      background-color: @orange;
+      height: 24px;
+      position: relative;
+
+      > #yc {
+        border: 1px solid @white;
+        margin: 2px;
+        display: inline-block;
+        vertical-align: middle;
+
+        > img {
+          vertical-align: middle;
+        }
+      }
+
+      > h1 {
+        font-weight: bold;
+        font-size: 13px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+      }
+
+      > .source {
+        color: @white;
+        font-size: 11px;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+
+        > a {
+          color: @white;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 700px) {
+      width: 100%;
+    }
+  }
+
+  // TODO
+  // .view
+  //   position absolute
+  //   background-color $bg
+  //   width 100%
+  //   transition opacity .2s ease
+  //   box-sizing border-box
+  //   padding 8px 20px
+  //   &.v-enter, &.v-leave
+  //     opacity 0
+}
