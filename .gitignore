@@ -1,6 +1,8 @@
-*.log
-.envrc
-.tmp/
-lib/
-node_modules/
-typings/
+/*.log
+/.envrc
+/.tmp/
+/dist/
+/lib/
+/node_modules/
+/npm-debug.log.*
+/typings/
