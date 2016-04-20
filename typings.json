@@ -2,7 +2,9 @@
   "name": "counter-boa",
   "version": false,
   "dependencies": {},
-  "ambientDependencies": {},
+  "ambientDependencies": {
+    "node": "registry:dt/node#4.0.0+20160412142033"
+  },
   "devDependencies": {
     "proxyquire": "registry:npm/proxyquire#1.0.0+20160211003958",
     "sinon": "registry:npm/sinon#1.16.0+20160309002336"
