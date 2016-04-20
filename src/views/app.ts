@@ -1,4 +1,5 @@
 import { State } from '../types/state';
+import { view as newsView } from '../views/news-view';
 
 const headerView = (_: State, helpers: any): any => {
   const { create: h } = helpers;
@@ -27,6 +28,12 @@ const headerView = (_: State, helpers: any): any => {
 };
 
 const mainView = (state: State, helpers: any): any => {
+  const views = {
+    news: newsView
+  };
+  const view = views[state.currentPage];
+  if (!view) return null;
+  return view(state, helpers);
   // TODO
   // <router-view
   //   class="view"
@@ -34,7 +41,6 @@ const mainView = (state: State, helpers: any): any => {
   //   transition
   //   transition-mode="out-in">
   // </router-view>
-  return null;
 };
 
 const view = (state: State, helpers: any): any => {
