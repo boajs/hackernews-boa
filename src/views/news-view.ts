@@ -1,5 +1,6 @@
 import { News } from '../types/news';
 import { State } from '../types/state';
+import { view as itemView } from '../views/item';
 
 type ViewState = News;
 
@@ -33,17 +34,11 @@ const view = (state: State, helpers: any): any => {
   const { create: h } = helpers;
   const { news } = state;
   const loadingClass = news.items.length > 0 ? '.loading' : '';
-  return h('div.news-view' + loadingClass, [
-    // TODO: item view
-    // <item
-    //   v-for="item in items"
-    //   :item="item"
-    //   :index="$index | formatItemIndex"
-    //   track-by="id">
-    // </item>
-    null,
-    newsNavView(news, helpers)
-  ]);
+  return h('div.view.news-view' + loadingClass,
+    news.items.map((item, index) => itemView({ item, index }, helpers)).concat([
+      newsNavView(news, helpers)
+    ])
+  );
 };
 
 export { view };
