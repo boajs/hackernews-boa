@@ -1,0 +1,5 @@
+type NewsItem = {
+
+};
+
+export { NewsItem };
