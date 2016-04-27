@@ -4,7 +4,7 @@ const view = ({ item, comments, pollOptions }: any, helpers: any): any => {
   const { create: h } = helpers;
   const isJob = item.type === 'job';
   const hasText = item.hasOwnProperty('text');
-  return item ? h('div.item-view', [
+  return item ? h('div.view.item-view', [
     itemView({ item }, helpers),
     hasText ? h('p.itemtext', [item.text]) : null,
     pollOptions ? h('ul.poll-options', pollOptions.map(option => {

@@ -1,0 +1,46 @@
+@import "./colors";
+@import "./item";
+
+.item-view() {
+  padding-left: 5px;
+  padding-right: 15px;
+
+  > .item {
+    .item();
+
+    padding-left: 0;
+    margin-bottom: 30px;
+
+    > .index {
+      display: none;
+    }
+  }
+
+  > .itemtext {
+    color: @gray;
+    margin-top: 0;
+    margin-bottom: 30px;
+
+    > p {
+      margin: 10px 0;
+    }
+  }
+
+  > .poll-options {
+    margin-left: 30px;
+    margin-bottom: 40px;
+
+    > li {
+      margin: 12px 0;
+
+      > p {
+        margin: 8px 0;
+      }
+
+      > .subtext {
+        color: @gray;
+        font-size: 11px;
+      }
+    }
+  }
+}
