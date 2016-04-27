@@ -33,7 +33,7 @@ const newsNavView = (state: ViewState, helpers: any): any => {
 const view = (state: State, helpers: any): any => {
   const { create: h } = helpers;
   const { news } = state;
-  const loadingClass = news.items.length > 0 ? '.loading' : '';
+  const loadingClass = news.items.length === 0 ? '.loading' : '';
   return h('div.view.news-view' + loadingClass,
     news.items.map((item, index) => itemView({ item, index }, helpers)).concat([
       newsNavView(news, helpers)

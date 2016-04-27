@@ -31,17 +31,18 @@ const view = ({ item, index }: any, helpers: any): any => {
         item.title
       ]),
       showDomain ? h('span.domain', [
-        domain(item.url)
+        '(' + domain(item.url) + ')'
       ]) : null
     ]),
     h('p.subtext', [
       showInfo ? h('span', [
         item.score,
-        ' points by',
+        ' points by ',
         h('a', { href: '#/user/' + item.by }, [
           item.by
         ])
       ]) : null,
+      ' ',
       fromNow(item.time) + ' ago',
       showInfo ? h('span.comments-link', [
         '| ',
