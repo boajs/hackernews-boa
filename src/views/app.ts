@@ -1,4 +1,5 @@
 import { State } from '../types/state';
+import { view as itemView } from '../views/item-view';
 import { view as newsView } from '../views/news-view';
 
 const headerView = (_: State, helpers: any): any => {
@@ -29,6 +30,7 @@ const headerView = (_: State, helpers: any): any => {
 
 const mainView = (state: State, helpers: any): any => {
   const views = {
+    item: itemView,
     news: newsView
   };
   const view = views[state.currentPage];
