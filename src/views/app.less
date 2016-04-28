@@ -1,4 +1,5 @@
 @import "./colors";
+@import "./item-view";
 @import "./news-view";
 
 .app() {
@@ -63,6 +64,10 @@
       &.v-leave {
         opacity: 0;
       }
+    }
+
+    > .item-view {
+      .item-view();
     }
 
     > .news-view {

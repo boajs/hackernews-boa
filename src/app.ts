@@ -19,7 +19,9 @@ const app: Handler = (action$: O<A<any>>, options?: any): O<A<any>> => {
       items: [
         newsItem
       ]
-    }
+    },
+    item: newsItem,
+    comments: []
   };
   return O.of(initialState).map(data => ({ type: 'render', data }));
 };
