@@ -1,3 +1,4 @@
+import { view as commentView } from '../views/comment';
 import { view as itemView } from '../views/item';
 
 const view = ({ item, comments, pollOptions }: any, helpers: any): any => {
@@ -14,7 +15,7 @@ const view = ({ item, comments, pollOptions }: any, helpers: any): any => {
       ]);
     })) : null,
     comments ? h('ul.comments', comments.map(comment => {
-      return null; // TODO: commentView(comment);
+      return commentView({ comment }, helpers);
     })) : null,
     comments.length === 0 && !isJob ? h('p', ['No comments yet.']) : null
   ]) : null;
