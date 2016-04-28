@@ -1,4 +1,4 @@
-import { A, O, run } from 'boa-core';
+import { A, O, run } from './boa';
 import { init as dom } from 'boa-handler-dom';
 import { app } from './app';
 import { view } from './views/app';
