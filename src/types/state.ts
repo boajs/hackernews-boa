@@ -1,5 +1,6 @@
 import { News } from '../types/news';
 import { NewsItem } from '../types/news-item';
+import { User } from '../types/user';
 
 type State = {
   currentPage: string;
@@ -9,6 +10,8 @@ type State = {
   comments: any[];
   // store.fetchItems(item.parts)
   pollOptions: { text: string; score: number; }[];
+  // store.fetchUser(id)
+  user: User;
 };
 
 export { State };

@@ -1,0 +1,22 @@
+@import "./colors";
+
+.user-view() {
+  color: @gray;
+
+  > ul > li {
+    margin: 5px 0;
+
+    > .label {
+      display: inline-block;
+      min-width: 60px;
+    }
+
+    > .about {
+      margin-top: 1em;
+    }
+  }
+
+  > .links > a {
+    text-decoration: underline;
+  }
+}
