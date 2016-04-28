@@ -11,6 +11,7 @@ const view = ({ item, index }: any, helpers: any): any => {
       h('a.title', { href, target: '_blank' }, [
         item.title
       ]),
+      ' ',
       showDomain ? h('span.domain', [
         '(' + domain(item.url) + ')'
       ]) : null
@@ -26,7 +27,7 @@ const view = ({ item, index }: any, helpers: any): any => {
       ' ',
       fromNow(item.time) + ' ago',
       showInfo ? h('span.comments-link', [
-        '| ',
+        ' | ',
         h('a', { href: '#/item/' + item.id }, [
           pluralize(item.descendants, ' comment')
         ])
