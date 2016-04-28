@@ -1,4 +1,5 @@
 import { A, O, Handler } from './boa';
+import { extract as pathChanged$ } from './actions/path-changed';
 import { NewsItem } from './types/news-item';
 
 const app: Handler = (action$: O<A<any>>, options?: any): O<A<any>> => {
@@ -23,7 +24,15 @@ const app: Handler = (action$: O<A<any>>, options?: any): O<A<any>> => {
     item: newsItem,
     comments: []
   };
-  return O.of(initialState).map(data => ({ type: 'render', data }));
+
+  const pathChangedUpdate$ = pathChanged$(action$)
+    .map(({ route: { name }, params }) => state => {
+      return Object.assign({}, state, { currentPage: name });
+    });
+  return O.of(initialState)
+    .merge(pathChangedUpdate$)
+    .scan((state: any, update: (state: any) => any) => update(state))
+    .map(data => ({ type: 'render', data }));
 };
 
 export { app };
