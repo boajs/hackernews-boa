@@ -1,4 +1,4 @@
-import { A, O, Handler } from 'boa-core';
+import { A, O, Handler } from './boa';
 import { NewsItem } from './types/news-item';
 
 const app: Handler = (action$: O<A<any>>, options?: any): O<A<any>> => {
