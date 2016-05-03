@@ -3,6 +3,7 @@ import { domain, pluralize, fromNow } from '../views/helpers';
 const domainView = (item: any, helpers: any): any => {
   const { create: h } = helpers;
   if (item.type !== 'story') return null; // type !== 'story' -> no url
+  if (!item.url) return null; // url is not defined
   return h('span.domain', ['(' + domain(item.url) + ')']);
 };
 
