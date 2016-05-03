@@ -1,6 +1,7 @@
 import * as url from 'url';
 
 const domain = (urlString: string): string => {
+  if (!urlString) throw new Error('urlString is not defined');
   return url.parse(urlString).hostname;
 };
 

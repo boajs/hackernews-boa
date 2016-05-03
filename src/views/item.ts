@@ -1,10 +1,15 @@
 import { domain, pluralize, fromNow } from '../views/helpers';
 
+const domainView = (item: any, helpers: any): any => {
+  const { create: h } = helpers;
+  if (item.type !== 'story') return null; // type !== 'story' -> no url
+  return h('span.domain', ['(' + domain(item.url) + ')']);
+};
+
 const view = ({ item, index }: any, helpers: any): any => {
   const { create: h } = helpers;
   const href = item.url || ('#/item/' + item.id);
-  const showInfo = item.type === 'story';
-  const showDomain = item.type === 'story' || item.type === 'poll';
+  const showInfo = item.type === 'story' || item.type === 'poll';
   return h('div.item', [
     h('span.index', [index + '.']),
     h('p', [
@@ -12,9 +17,7 @@ const view = ({ item, index }: any, helpers: any): any => {
         item.title
       ]),
       ' ',
-      showDomain ? h('span.domain', [
-        '(' + domain(item.url) + ')'
-      ]) : null
+      domainView(item, helpers)
     ]),
     h('p.subtext', [
       showInfo ? h('span', [
