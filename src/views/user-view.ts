@@ -24,7 +24,7 @@ const view = ({ user }: { user: User }, helpers: any): any => {
       ]),
       h('li', [
         h('span.label', ['about:']),
-        h('div.about', [user.about])
+        h('div.about', { innerHTML: user.about })
       ])
     ]),
     h('p.links', [
