@@ -20,7 +20,7 @@ const view = ({ comment }: any, helpers: any): any => {
       fromNow(comment.time),
       ' ago'
     ]),
-    h('p.comment-content', [comment.text]),
+    h('p.comment-content', { innerHTML: comment.text }),
     comment.kids ? h('ul.child-comments', childComments.map(comment => {
       return view({ comment }, helpers);
     })) : null
