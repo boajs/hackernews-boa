@@ -1,4 +1,4 @@
-import { makeSimpleAction } from '../make-simple-action';
+import { makeSimpleAction } from '../utils/make-simple-action';
 
 type Route = {
   path: string;
