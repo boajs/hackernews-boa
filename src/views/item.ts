@@ -5,6 +5,8 @@ export type State = {
   item: Item;
   index?: number;
 };
+export type Helpers = any;
+export type View = any;
 
 type ViewState = {
   by: string;
@@ -21,7 +23,7 @@ type ViewState = {
   url: string;
 };
 
-const viewState = ({ item, index }: State, helpers: any): any => {
+const viewState = ({ item, index }: State, _: Helpers): ViewState => {
   if (!item) return null;
   return {
     by: item.by,
@@ -39,7 +41,7 @@ const viewState = ({ item, index }: State, helpers: any): any => {
   };
 };
 
-const render = (state: ViewState, helpers: any): any => {
+const render = (state: ViewState, helpers: Helpers): View => {
   if (!state) return null;
   const { create: h } = helpers;
   return h('div.item', [
@@ -61,8 +63,7 @@ const render = (state: ViewState, helpers: any): any => {
   ]);
 };
 
-const view = (state: State, helpers: any): any => {
-  return render(viewState(state, helpers), helpers);
-};
+const view: (state: State, helpers: Helpers) => View = (state, helpers) =>
+  render(viewState(state, helpers), helpers);
 
 export { view };

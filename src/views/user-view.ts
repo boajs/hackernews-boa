@@ -1,6 +1,8 @@
 import { fromNow } from '../views/helpers';
 import { State } from '../types/state';
 
+export type Helpers = any;
+export type View = any;
 
 type ViewState = {
   id: string;
@@ -11,7 +13,7 @@ type ViewState = {
   commentsUrl: string;
 };
 
-const viewState = ({ user }: State, _: any): ViewState => {
+const viewState = ({ user }: State, _: Helpers): ViewState => {
   if (!user) return null;
   return {
     id: user.id,
@@ -23,7 +25,7 @@ const viewState = ({ user }: State, _: any): ViewState => {
   };
 };
 
-const render = (state: ViewState, helpers: any): any => {
+const render = (state: ViewState, helpers: Helpers): View => {
   if (!state) return null;
   const { create: h } = helpers;
   return h('div.view.user-view', [
@@ -44,8 +46,7 @@ const render = (state: ViewState, helpers: any): any => {
   ]);
 };
 
-const view = (state: State, helpers: any): any => {
-  return render(viewState(state, helpers), helpers);
-};
+const view: (state: State, helpers: Helpers) => View = (state, helpers) =>
+  render(viewState(state, helpers), helpers);
 
 export { view };

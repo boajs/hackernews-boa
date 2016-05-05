@@ -2,6 +2,8 @@ import { view as commentView } from '../views/comment';
 import { view as itemView } from '../views/item';
 import { State } from '../types/state';
 
+export type Helpers = any;
+export type View = any;
 
 type ViewState = {
   allComments: any[];
@@ -17,7 +19,7 @@ type ViewState = {
 
 const viewState = ({
   item, comments, pollOptions
-}: State, helpers: any): ViewState => {
+}: State, _: Helpers): ViewState => {
   if (!item) return null;
   const hasComments = item.kids && item.kids.length > 0;
   const hasPollOptions = !!pollOptions;
@@ -39,7 +41,7 @@ const viewState = ({
   };
 };
 
-const render = (state: ViewState, helpers: any): any => {
+const render = (state: ViewState, helpers: Helpers): View => {
   if (!state) return null;
   const { create: h } = helpers;
   return h('div.view.item-view', [
@@ -66,8 +68,7 @@ const render = (state: ViewState, helpers: any): any => {
   ]);
 };
 
-const view = (state: State, helpers: any): any => {
-  return render(viewState(state, helpers), helpers);
-};
+const view: (state: State, helpers: Helpers) => View = (state, helpers) =>
+  render(viewState(state, helpers), helpers);
 
 export { view };

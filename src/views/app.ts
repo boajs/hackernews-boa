@@ -3,13 +3,15 @@ import { view as newsView } from '../views/news-view';
 import { view as userView } from '../views/user-view';
 import { State } from '../types/state';
 
+export type Helpers = any;
+export type View = any;
 
 type ViewState = {
   currentPage: string;
   state: State;
 };
 
-const viewState = (state: State, helpers: any): ViewState => {
+const viewState = (state: State, _: Helpers): ViewState => {
   if (!state) return null;
   return {
     currentPage: state.currentPage,
@@ -17,7 +19,7 @@ const viewState = (state: State, helpers: any): ViewState => {
   };
 };
 
-const headerView = (_: ViewState, helpers: any): any => {
+const headerView = (_: ViewState, helpers: Helpers): View => {
   const { create: h } = helpers;
   return h('div#header', [
     h('a#yc', { href: 'http://www.ycombinator.com' }, [
@@ -43,7 +45,7 @@ const headerView = (_: ViewState, helpers: any): any => {
   ]);
 };
 
-const mainView = (state: ViewState, helpers: any): any => {
+const mainView = (state: ViewState, helpers: Helpers): View => {
   const views = {
     item: itemView,
     news: newsView,
@@ -61,7 +63,7 @@ const mainView = (state: ViewState, helpers: any): any => {
   // </router-view>
 };
 
-const render = (state: ViewState, helpers: any): any => {
+const render = (state: ViewState, helpers: Helpers): View => {
   if (!state) return null;
   const { create: h } = helpers;
   return h('div#app', [
@@ -72,8 +74,7 @@ const render = (state: ViewState, helpers: any): any => {
   ]);
 };
 
-const view = (state: any, helpers: any): any => {
-  return render(viewState(state, helpers), helpers);
-};
+const view: (state: State, helpers: Helpers) => View = (state, helpers) =>
+  render(viewState(state, helpers), helpers);
 
 export { view };
