@@ -22,7 +22,7 @@ const viewState = ({
   item, comments // , pollOptions // TODO
 }: State, _: Helpers): ViewState => {
   if (!item) return null;
-  const pollOptions = [];
+  const pollOptions: any[] = [];
   const hasComments = item.kids && item.kids.length > 0;
   const hasPollOptions = !!pollOptions;
   return {
