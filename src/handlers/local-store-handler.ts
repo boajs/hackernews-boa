@@ -5,6 +5,7 @@ import { extract as storyItemFetched$ } from '../actions/story-item-fetched';
 import { extract as topStoriesFetched$ } from '../actions/top-stories-fetched';
 import { extract as userFetched$ } from '../actions/user-fetched';
 import { create as state } from '../actions/state-changed';
+import { Item } from '../types/hn';
 import { State } from '../types/state';
 
 const handler: Handler = (
@@ -30,7 +31,7 @@ const handler: Handler = (
       const fetchedCommentsObj = fetchedComments.reduce((comments, comment) => {
         comments[comment.id] = comment;
         return comments;
-      }, {});
+      }, <{ [id: number]: Item; }>{});
       const newComments = Object.assign({}, comments, fetchedCommentsObj);
       return Object.assign({}, state, { comments: newComments });
     });
