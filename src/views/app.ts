@@ -54,13 +54,6 @@ const mainView = (state: ViewState, helpers: Helpers): View => {
   const view = views[state.currentPage];
   if (!view) return null;
   return view(state.state, helpers);
-  // TODO
-  // <router-view
-  //   class="view"
-  //   keep-alive
-  //   transition
-  //   transition-mode="out-in">
-  // </router-view>
 };
 
 const render = (state: ViewState, helpers: Helpers): View => {
