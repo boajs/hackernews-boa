@@ -5,6 +5,9 @@ import {
   create as commentsFetched
 } from '../actions/comments-fetched';
 import {
+  create as pollOptionsFetched
+} from '../actions/poll-options-fetched';
+import {
   create as storyItemFetched,
   extract as storyItemFetched$
 } from '../actions/story-item-fetched';
@@ -38,6 +41,20 @@ const initCommentsFetched: Handler = (
     fetchKids(storyCommentsFetched$.mergeMap(comments => O.from(comments)))
     )
     .map(commentsFetched)
+    .share();
+};
+
+const initPollOptionsFetched: Handler = (
+  action$: O<A<any>>, options?: any
+): O<A<any>> => {
+  const { fetchItems } = options;
+  return storyItemFetched$(action$)
+    .filter(item => !!item.parts && item.parts.length > 0)
+    .mergeMap(item => {
+      const promise: Promise<Item[]> = fetchItems(item.parts);
+      return O.fromPromise(promise);
+    })
+    .map(pollOptionsFetched)
     .share();
 };
 
@@ -100,25 +117,10 @@ const initUserFetched: Handler = (
 };
 
 const handler: Handler = (action$: O<A<any>>, options?: any): O<A<any>> => {
-  // TODO
-  // const pollOptionsFetched$ = itemFetched$
-  //   .filter(item => item.type === 'story')
-  //   .filter(item => !!item.parts)
-  //   .mergeMap(item => {
-  //     const promise = fetchItems(item.parts);
-  //     return O.fromPromise(promise);
-  //   })
-  //   .map(comments => {
-  //     return comments.reduce((allComments, comment) => {
-  //       allComments[comment.id] = comment;
-  //       return allComments;
-  //     }, {});
-  //   })
-  //   .share();
-
   const opts = Object.assign({}, options, makeStore());
   return O.merge(
     initCommentsFetched(action$, opts),
+    initPollOptionsFetched(action$, opts),
     initStoryItemFetched(action$, opts),
     initTopStoriesFetched(action$, opts),
     initUserFetched(action$, opts)

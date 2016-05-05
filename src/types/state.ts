@@ -9,7 +9,8 @@ type State = {
   };
   item?: Item;
   user?: User;
-  comments: { [id: number]: Item };
+  comments: { [id: number]: Item; };
+  pollOptions: { [id: number]: Item; };
 };
 
 export { State };

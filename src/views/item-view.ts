@@ -19,27 +19,26 @@ type ViewState = {
 };
 
 const viewState = ({
-  item, comments // , pollOptions // TODO
+  item, comments: allComments, pollOptions: allPollOptions
 }: State, _: Helpers): ViewState => {
   if (!item) return null;
-  const pollOptions: any[] = [];
   const hasComments = item.kids && item.kids.length > 0;
-  const hasPollOptions = !!pollOptions;
+  const comments = hasComments ? item.kids.map(id => allComments[id]) : [];
+  const hasPollOptions = item.parts && item.parts.length > 0;
+  const pollOptions = hasPollOptions
+    ? item.parts.map(id => allPollOptions[id]) : [];
   return {
-    allComments: comments,
-    comments: hasComments ? item.kids.map(id => comments[id]) : [],
+    allComments,
+    comments: comments.filter(i => !!i),
     hasComments,
     hasNoComments: !hasComments && item.type !== 'job',
     hasPollOptions,
     hasText: item.hasOwnProperty('text'),
     item,
-    text: item.hasOwnProperty('text') ? item.text : null,
-    pollOptions: hasPollOptions ? pollOptions.map(i => {
-      return {
-        text: i.text,
-        score: i.score + ' points'
-      };
-    }) : []
+    pollOptions: pollOptions.filter(i => !!i).map(({ text, score }) => {
+      return { text, score: score + ' points' };
+    }),
+    text: item.hasOwnProperty('text') ? item.text : null
   };
 };
 
