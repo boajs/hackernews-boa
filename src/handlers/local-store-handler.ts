@@ -49,6 +49,14 @@ const handler: Handler = (
       const newNews = Object.assign({}, news, { items });
       return Object.assign({}, state, { news: newNews });
     });
+  const newsPageUpdate$ = pathChanged$(action$)
+    .map(({ params: { page } }) => (state: State): State => {
+      const { news } = state;
+      const pageString = typeof page === 'undefined' ? '1' : page;
+      const pageNumber = parseInt(pageString, 10);
+      const newNews = Object.assign({}, news, { page: pageNumber });
+      return Object.assign({}, state, { news: newNews });
+    });
   const pollOptionsUpdate$ = pollOptionsFetched$(action$)
     .map(fetched => (state: State): State => {
       const { pollOptions } = state;
@@ -69,6 +77,7 @@ const handler: Handler = (
     commentsUpdate$,
     currentPageUpdate$,
     itemUpdate$,
+    newsPageUpdate$,
     newsUpdate$,
     pollOptionsUpdate$,
     userUpdate$
