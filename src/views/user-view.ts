@@ -1,6 +1,6 @@
 import { fromNow } from '../views/helpers';
+import { State } from '../types/state';
 
-type State = any;
 
 type ViewState = {
   id: string;

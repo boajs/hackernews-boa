@@ -1,6 +1,6 @@
 import { view as itemView } from '../views/item';
+import { State } from '../types/state';
 
-type State = any;
 
 type ViewState = {
   hasMore: boolean;

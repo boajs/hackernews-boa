@@ -1,8 +1,8 @@
 import { view as itemView } from '../views/item-view';
 import { view as newsView } from '../views/news-view';
 import { view as userView } from '../views/user-view';
+import { State } from '../types/state';
 
-type State = any;
 
 type ViewState = {
   currentPage: string;

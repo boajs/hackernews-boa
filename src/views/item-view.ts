@@ -1,7 +1,7 @@
 import { view as commentView } from '../views/comment';
 import { view as itemView } from '../views/item';
+import { State } from '../types/state';
 
-type State = any;
 
 type ViewState = {
   allComments: any[];
