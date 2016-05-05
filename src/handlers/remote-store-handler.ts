@@ -58,9 +58,15 @@ const initStoryItemFetched: Handler = (
 const initTopStoriesFetched: Handler = (
   action$: O<A<any>>, options?: any
 ): O<A<any>> => {
-  const { topStoryIdsUpdated$, fetchItems } = options;
+  const {
+    topStoryIdsUpdated$,
+    fetchItems
+  }: {
+      topStoryIdsUpdated$: O<number[]>;
+      fetchItems: (ids: number[]) => Promise<Item[]>;
+    } = options;
   return topStoryIdsUpdated$
-    .withLatestFrom(state$(action$), (topStoryIds, state: any) => {
+    .withLatestFrom(state$(action$), (topStoryIds: number[], state: any) => {
       if (state.currentPage === 'news') {
         // fetchItemsByPage
         const { news: { page, storiesPerPage } } = state;
