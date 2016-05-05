@@ -57,7 +57,7 @@ const handler: Handler = (
     newsUpdate$,
     userUpdate$
     )
-    .scan((state: State, update: (state: State) => any) => update(state))
+    .scan((state: State, update: (state: State) => State) => update(state))
     .map(state)
     .share();
 };
