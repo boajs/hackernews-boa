@@ -1,7 +1,6 @@
 import { makeSimpleAction } from '../utils/make-simple-action';
+import { Item } from '../types/hn';
 
-type StoryItem = any; // TODO
-
-const { create, extract } = makeSimpleAction<StoryItem>('story-item-fetched');
+const { create, extract } = makeSimpleAction<Item>('story-item-fetched');
 
 export { create, extract };

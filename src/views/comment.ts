@@ -1,14 +1,15 @@
 import { pluralize, fromNow } from '../views/helpers';
+import { Item } from '../types/hn';
 
-type State = {
-  comment: any;
-  comments: any[];
+export type State = {
+  comment: Item;
+  comments: { [id: number]: Item; };
 };
 
 type ViewState = {
   by: string;
   childComments: any[];
-  comments: any[];
+  comments: { [id: number]: any; };
   hasChildComments: boolean;
   text: string;
   time: string;

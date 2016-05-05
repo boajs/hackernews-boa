@@ -1,6 +1,10 @@
 import { domain, pluralize, fromNow } from '../views/helpers';
+import { Item } from '../types/hn';
 
-type State = any;
+export type State = {
+  item: Item;
+  index?: number;
+};
 
 type ViewState = {
   by: string;
