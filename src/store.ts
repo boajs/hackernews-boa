@@ -3,13 +3,6 @@ import * as Firebase from 'firebase';
 import { fetch, from } from './utils/firebase';
 import { Item, User } from './types/hn';
 
-// fetchItemsByPage(page: number): Promise<Item[]> {
-//   const start = (page - 1) * this.storiesPerPage;
-//   const end = page * this.storiesPerPage;
-//   const ids = this.topStoryIdsCache.slice(start, end);
-//   return this.fetchItems(ids);
-// }
-
 export interface Store {
   fetchItem: (id: number) => Promise<Item>;
   fetchItems: (ids: number[]) => Promise<Item[]>;
