@@ -36,7 +36,6 @@ const viewState = (state: State, helpers: any): ViewState => {
   };
 }
 
-
 const render = (state: ViewState, helpers: any): any => {
   if (!state) return null;
   const { create: h } = helpers;
