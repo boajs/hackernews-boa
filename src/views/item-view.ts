@@ -6,7 +6,7 @@ export type Helpers = any;
 export type View = any;
 
 type ViewState = {
-  allComments: any[];
+  allComments: { [id: number]: any; };
   comments: any[];
   hasComments: boolean;
   hasNoComments: boolean;
@@ -18,16 +18,17 @@ type ViewState = {
 };
 
 const viewState = ({
-  item, comments, pollOptions
+  item, comments // , pollOptions // TODO
 }: State, _: Helpers): ViewState => {
   if (!item) return null;
+  const pollOptions = [];
   const hasComments = item.kids && item.kids.length > 0;
   const hasPollOptions = !!pollOptions;
   return {
     allComments: comments,
     comments: hasComments ? item.kids.map(id => comments[id]) : [],
     hasComments,
-    hasNoComments: comments.length === 0 && item.type !== 'job',
+    hasNoComments: !hasComments && item.type !== 'job',
     hasPollOptions,
     hasText: item.hasOwnProperty('text'),
     item,

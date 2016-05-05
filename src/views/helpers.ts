@@ -9,7 +9,7 @@ const pluralize = (time: number, label: string): string => {
   return time + label + (time === 1 ? '' : 's');
 };
 
-const fromNow = (time: string): string => {
+const fromNow = (time: string | number): string => {
   const between = Date.now() / 1000 - Number(time)
   if (between < 3600) {
     return pluralize(~~(between / 60), ' minute')

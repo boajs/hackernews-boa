@@ -15,6 +15,7 @@ type ViewState = {
   commentsUrl: string;
   domain: string;
   hasDomain: boolean;
+  hasIndex: boolean;
   index: string;
   score: string;
   showInfo: boolean;
@@ -31,7 +32,8 @@ const viewState = ({ item, index }: State, _: Helpers): ViewState => {
     comments: pluralize(item.descendants, ' comment'),
     commentsUrl: '#/item/' + item.id,
     domain: item.type === 'story' && item.url ? domain(item.url) : null,
-    hasDomain: item.type === 'story' && item.url,
+    hasDomain: item.type === 'story' && !!item.url,
+    hasIndex: typeof index === 'undefined',
     index: index + '.',
     score: item.score + ' points',
     showInfo: item.type === 'story' || item.type === 'poll',
@@ -45,7 +47,7 @@ const render = (state: ViewState, helpers: Helpers): View => {
   if (!state) return null;
   const { create: h } = helpers;
   return h('div.item', [
-    h('span.index', [state.index]),
+    !state.hasIndex ? null : h('span.index', [state.index]),
     h('p', [
       h('a.title', { href: state.url, target: '_blank' }, [state.title]), ' ',
       state.hasDomain ? h('span.domain', ['(' + state.domain + ')']) : null
