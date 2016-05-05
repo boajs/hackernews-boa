@@ -1,7 +1,6 @@
 import { makeSimpleAction } from '../utils/make-simple-action';
+import { Item } from '../types/hn';
 
-type Comment = any; // TODO
-
-const { create, extract } = makeSimpleAction<Comment[]>('comments-fetched');
+const { create, extract } = makeSimpleAction<Item[]>('comments-fetched');
 
 export { create, extract };

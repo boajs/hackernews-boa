@@ -1,31 +1,35 @@
 import { view as commentView } from '../views/comment';
 import { view as itemView } from '../views/item';
+import { Item } from '../types/hn';
+import { State } from '../types/state';
 
-type State = any;
+export type Helpers = any;
+export type View = any;
 
 type ViewState = {
-  allComments: any[];
-  comments: any[];
+  allComments: { [id: number]: Item; }; // for views/comment
+  comments: Item[]; // for views/comment
   hasComments: boolean;
   hasNoComments: boolean;
   hasPollOptions: boolean;
   hasText: boolean;
-  item: any;
+  item: Item; // for views/item
   pollOptions: { text: string; score: string; }[];
   text: string;
 };
 
 const viewState = ({
-  item, comments, pollOptions
-}: State, helpers: any): ViewState => {
+  item, comments // , pollOptions // TODO
+}: State, _: Helpers): ViewState => {
   if (!item) return null;
+  const pollOptions: any[] = [];
   const hasComments = item.kids && item.kids.length > 0;
   const hasPollOptions = !!pollOptions;
   return {
     allComments: comments,
     comments: hasComments ? item.kids.map(id => comments[id]) : [],
     hasComments,
-    hasNoComments: comments.length === 0 && item.type !== 'job',
+    hasNoComments: !hasComments && item.type !== 'job',
     hasPollOptions,
     hasText: item.hasOwnProperty('text'),
     item,
@@ -39,7 +43,7 @@ const viewState = ({
   };
 };
 
-const render = (state: ViewState, helpers: any): any => {
+const render = (state: ViewState, helpers: Helpers): View => {
   if (!state) return null;
   const { create: h } = helpers;
   return h('div.view.item-view', [
@@ -66,8 +70,7 @@ const render = (state: ViewState, helpers: any): any => {
   ]);
 };
 
-const view = (state: State, helpers: any): any => {
-  return render(viewState(state, helpers), helpers);
-};
+const view: (state: State, helpers: Helpers) => View = (state, helpers) =>
+  render(viewState(state, helpers), helpers);
 
 export { view };

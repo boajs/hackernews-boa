@@ -1,5 +1,5 @@
 import test from 'ava';
 
 test(t => {
-  t.ok(1 === 1);
+  t.true(1 === 1);
 });

@@ -5,20 +5,8 @@ import { extract as storyItemFetched$ } from '../actions/story-item-fetched';
 import { extract as topStoriesFetched$ } from '../actions/top-stories-fetched';
 import { extract as userFetched$ } from '../actions/user-fetched';
 import { create as state } from '../actions/state-changed';
-import { Item, User } from '../types/hn';
-
-// TODO
-type State = {
-  currentPage: string;
-  news: {
-    page: number;
-    storiesPerPage: number;
-    items: Item[];
-  };
-  item?: Item;
-  user?: User;
-  comments: { [id: number]: Item };
-};
+import { Item } from '../types/hn';
+import { State } from '../types/state';
 
 const handler: Handler = (
   action$: O<A<any>>,
@@ -43,7 +31,7 @@ const handler: Handler = (
       const fetchedCommentsObj = fetchedComments.reduce((comments, comment) => {
         comments[comment.id] = comment;
         return comments;
-      }, {});
+      }, <{ [id: number]: Item; }>{});
       const newComments = Object.assign({}, comments, fetchedCommentsObj);
       return Object.assign({}, state, { comments: newComments });
     });
@@ -70,7 +58,7 @@ const handler: Handler = (
     newsUpdate$,
     userUpdate$
     )
-    .scan((state: State, update: (state: State) => any) => update(state))
+    .scan((state: State, update: (state: State) => State) => update(state))
     .map(state)
     .share();
 };

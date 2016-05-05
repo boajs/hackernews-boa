@@ -1,15 +1,17 @@
 import { view as itemView } from '../views/item-view';
 import { view as newsView } from '../views/news-view';
 import { view as userView } from '../views/user-view';
+import { State } from '../types/state';
 
-type State = any;
+export type Helpers = any;
+export type View = any;
 
 type ViewState = {
   currentPage: string;
   state: State;
 };
 
-const viewState = (state: State, helpers: any): ViewState => {
+const viewState = (state: State, _: Helpers): ViewState => {
   if (!state) return null;
   return {
     currentPage: state.currentPage,
@@ -17,7 +19,7 @@ const viewState = (state: State, helpers: any): ViewState => {
   };
 };
 
-const headerView = (_: ViewState, helpers: any): any => {
+const headerView = (_: ViewState, helpers: Helpers): View => {
   const { create: h } = helpers;
   return h('div#header', [
     h('a#yc', { href: 'http://www.ycombinator.com' }, [
@@ -43,8 +45,8 @@ const headerView = (_: ViewState, helpers: any): any => {
   ]);
 };
 
-const mainView = (state: ViewState, helpers: any): any => {
-  const views = {
+const mainView = (state: ViewState, helpers: Helpers): View => {
+  const views: { [page: string]: (state: State, helpers: Helpers) => View; } = {
     item: itemView,
     news: newsView,
     user: userView
@@ -52,16 +54,9 @@ const mainView = (state: ViewState, helpers: any): any => {
   const view = views[state.currentPage];
   if (!view) return null;
   return view(state.state, helpers);
-  // TODO
-  // <router-view
-  //   class="view"
-  //   keep-alive
-  //   transition
-  //   transition-mode="out-in">
-  // </router-view>
 };
 
-const render = (state: ViewState, helpers: any): any => {
+const render = (state: ViewState, helpers: Helpers): View => {
   if (!state) return null;
   const { create: h } = helpers;
   return h('div#app', [
@@ -72,8 +67,7 @@ const render = (state: ViewState, helpers: any): any => {
   ]);
 };
 
-const view = (state: any, helpers: any): any => {
-  return render(viewState(state, helpers), helpers);
-};
+const view: (state: State, helpers: Helpers) => View = (state, helpers) =>
+  render(viewState(state, helpers), helpers);
 
 export { view };

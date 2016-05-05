@@ -1,6 +1,12 @@
 import { domain, pluralize, fromNow } from '../views/helpers';
+import { Item } from '../types/hn';
 
-type State = any;
+export type State = {
+  item: Item;
+  index?: number;
+};
+export type Helpers = any;
+export type View = any;
 
 type ViewState = {
   by: string;
@@ -9,6 +15,7 @@ type ViewState = {
   commentsUrl: string;
   domain: string;
   hasDomain: boolean;
+  hasIndex: boolean;
   index: string;
   score: string;
   showInfo: boolean;
@@ -17,7 +24,7 @@ type ViewState = {
   url: string;
 };
 
-const viewState = ({ item, index }: State, helpers: any): any => {
+const viewState = ({ item, index }: State, _: Helpers): ViewState => {
   if (!item) return null;
   return {
     by: item.by,
@@ -25,7 +32,8 @@ const viewState = ({ item, index }: State, helpers: any): any => {
     comments: pluralize(item.descendants, ' comment'),
     commentsUrl: '#/item/' + item.id,
     domain: item.type === 'story' && item.url ? domain(item.url) : null,
-    hasDomain: item.type === 'story' && item.url,
+    hasDomain: item.type === 'story' && !!item.url,
+    hasIndex: typeof index !== 'undefined',
     index: index + '.',
     score: item.score + ' points',
     showInfo: item.type === 'story' || item.type === 'poll',
@@ -35,11 +43,11 @@ const viewState = ({ item, index }: State, helpers: any): any => {
   };
 };
 
-const render = (state: ViewState, helpers: any): any => {
+const render = (state: ViewState, helpers: Helpers): View => {
   if (!state) return null;
   const { create: h } = helpers;
   return h('div.item', [
-    h('span.index', [state.index]),
+    !state.hasIndex ? null : h('span.index', [state.index]),
     h('p', [
       h('a.title', { href: state.url, target: '_blank' }, [state.title]), ' ',
       state.hasDomain ? h('span.domain', ['(' + state.domain + ')']) : null
@@ -57,8 +65,7 @@ const render = (state: ViewState, helpers: any): any => {
   ]);
 };
 
-const view = (state: State, helpers: any): any => {
-  return render(viewState(state, helpers), helpers);
-};
+const view: (state: State, helpers: Helpers) => View = (state, helpers) =>
+  render(viewState(state, helpers), helpers);
 
 export { view };

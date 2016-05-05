@@ -1,6 +1,5 @@
 import { makeSimpleAction } from '../utils/make-simple-action';
-
-type State = any; // TODO
+import { State } from '../types/state';
 
 const { create, extract } = makeSimpleAction<State>('state-changed');
 

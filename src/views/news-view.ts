@@ -1,19 +1,22 @@
 import { view as itemView } from '../views/item';
+import { Item } from '../types/hn';
+import { State } from '../types/state';
 
-type State = any;
+export type Helpers = any;
+export type View = any;
 
 type ViewState = {
   hasMore: boolean;
   hasNav: boolean;
   hasPrev: boolean;
-  items: any[];
+  items: Item[]; // for views/item
   loadingClass: string;
   moreUrl: string;
   page: number;
   prevUrl: string;
 };
 
-const viewState = ({ news }: State, helpers: any): ViewState => {
+const viewState = ({ news }: State, helpers: Helpers): ViewState => {
   if (!news) return null;
   return {
     hasMore: news.page < 4,
@@ -27,7 +30,7 @@ const viewState = ({ news }: State, helpers: any): ViewState => {
   };
 };
 
-const newsNavView = (state: ViewState, helpers: any): any => {
+const newsNavView = (state: ViewState, helpers: Helpers): View => {
   if (!state.hasNav) return null;
   const { create: h } = helpers;
   return h('div.nav', [
@@ -36,7 +39,7 @@ const newsNavView = (state: ViewState, helpers: any): any => {
   ]);
 };
 
-const render = (state: ViewState, helpers: any): any => {
+const render = (state: ViewState, helpers: Helpers): View => {
   if (!state) return null;
   const { create: h } = helpers;
   return h('div.view.news-view' + state.loadingClass,
@@ -46,8 +49,7 @@ const render = (state: ViewState, helpers: any): any => {
   );
 };
 
-const view = (state: State, helpers: any): any => {
-  return render(viewState(state, helpers), helpers);
-};
+const view: (state: State, helpers: Helpers) => View = (state, helpers) =>
+  render(viewState(state, helpers), helpers);
 
 export { view };
