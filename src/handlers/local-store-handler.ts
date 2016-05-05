@@ -5,20 +5,7 @@ import { extract as storyItemFetched$ } from '../actions/story-item-fetched';
 import { extract as topStoriesFetched$ } from '../actions/top-stories-fetched';
 import { extract as userFetched$ } from '../actions/user-fetched';
 import { create as state } from '../actions/state-changed';
-import { Item, User } from '../types/hn';
-
-// TODO
-type State = {
-  currentPage: string;
-  news: {
-    page: number;
-    storiesPerPage: number;
-    items: Item[];
-  };
-  item?: Item;
-  user?: User;
-  comments: { [id: number]: Item };
-};
+import { State } from '../types/state';
 
 const handler: Handler = (
   action$: O<A<any>>,
