@@ -20,7 +20,8 @@ const main = (): void => {
         routes: [
           { name: 'news', path: '/news/:page' },
           { name: 'user', path: '/user/:id' },
-          { name: 'item', path: '/item/:id' }
+          { name: 'item', path: '/item/:id' },
+          { name: 'news', path: '*' }
         ],
         routeActionType: 'path-changed'
       }).handler(logged$, options)
