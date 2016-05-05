@@ -1,44 +1,53 @@
-import { News } from '../types/news';
-import { State } from '../types/state';
 import { view as itemView } from '../views/item';
 
-type ViewState = News;
+type State = any;
 
-const newsNavMoreView = (page: number, helpers: any): any => {
-  const { create: h } = helpers;
-  const hasMore = page < 4;
-  const more = '#/news/' + (page + 1);
-  if (!hasMore) return null;
-  return h('a', { href: more }, ['more...']);
+type ViewState = {
+  hasMore: boolean;
+  hasNav: boolean;
+  hasPrev: boolean;
+  items: any[];
+  loadingClass: string;
+  moreUrl: string;
+  page: number;
+  prevUrl: string;
 };
 
-const newsNavPrevView = (page: number, helpers: any): any => {
-  const { create: h } = helpers;
-  const hasPrev = page > 1;
-  const prev = '#/news/' + (page - 1);
-  if (!hasPrev) return null;
-  return h('a', { href: prev }, ['< prev']);
+const viewState = ({ news }: State, helpers: any): ViewState => {
+  if (!news) return null;
+  return {
+    hasMore: news.page < 4,
+    hasNav: news.items.length > 0,
+    hasPrev: news.page > 1,
+    items: news.items,
+    loadingClass: (news.items.length === 0 ? '.loading' : ''),
+    moreUrl: '#/news/' + (news.page + 1),
+    page: news.page,
+    prevUrl: '#/news/' + (news.page - 1)
+  };
 };
 
 const newsNavView = (state: ViewState, helpers: any): any => {
+  if (!state.hasNav) return null;
   const { create: h } = helpers;
-  const hasNav = state.items.length > 0;
-  if (!hasNav) return null;
   return h('div.nav', [
-    newsNavPrevView(state.page, helpers),
-    newsNavMoreView(state.page, helpers)
+    !state.hasPrev ? null : h('a', { href: state.prevUrl }, ['< prev']),
+    !state.hasMore ? null : h('a', { href: state.moreUrl }, ['more...'])
   ]);
 };
 
-const view = (state: State, helpers: any): any => {
+const render = (state: ViewState, helpers: any): any => {
+  if (!state) return null;
   const { create: h } = helpers;
-  const { news } = state;
-  const loadingClass = news.items.length === 0 ? '.loading' : '';
-  return h('div.view.news-view' + loadingClass,
-    news.items.map((item, index) => itemView({ item, index }, helpers)).concat([
-      newsNavView(news, helpers)
-    ])
+  return h('div.view.news-view' + state.loadingClass,
+    state.items.map((item, index) => {
+      return itemView({ item, index }, helpers);
+    }).concat([newsNavView(state, helpers)])
   );
+};
+
+const view = (state: State, helpers: any): any => {
+  return render(viewState(state, helpers), helpers);
 };
 
 export { view };
