@@ -19,6 +19,7 @@ import {
 } from '../actions/user-fetched';
 
 import { Item } from '../types/hn';
+import { State } from '../types/state';
 import { makeStore } from '../store';
 
 const initCommentsFetched: Handler = (
@@ -82,21 +83,37 @@ const initTopStoriesFetched: Handler = (
       topStoryIdsUpdated$: O<number[]>;
       fetchItems: (ids: number[]) => Promise<Item[]>;
     } = options;
-  return topStoryIdsUpdated$
-    .withLatestFrom(state$(action$), (topStoryIds: number[], state: any) => {
-      if (state.currentPage === 'news') {
-        // fetchItemsByPage
+  return O.merge(
+    topStoryIdsUpdated$
+      .withLatestFrom(state$(action$), (
+        topStoryIds: number[], state: State
+      ) => {
+        if (state.currentPage !== 'news') return null;
         const { news: { page, storiesPerPage } } = state;
-        const start = (page - 1) * storiesPerPage;
-        const end = page * storiesPerPage;
-        const ids = topStoryIds.slice(start, end);
-        return fetchItems(ids);
-      } else {
-        return Promise.resolve(null);
-      }
+        return { page, storiesPerPage, topStoryIds };
+      }),
+    pathChanged$(action$)
+      .filter(({ route: { name } }) => name === 'news')
+      .withLatestFrom(state$(action$), (
+        { params: { page } }, state: State
+      ) => {
+        const { news: { storiesPerPage } } = state;
+        return { page, storiesPerPage };
+      })
+      .withLatestFrom(topStoryIdsUpdated$, (
+        { page, storiesPerPage }, topStoryIds: number[]
+      ) => {
+        return { page, storiesPerPage, topStoryIds };
+      })
+  )
+    .filter(i => !!i)
+    .mergeMap(({ page, storiesPerPage, topStoryIds }) => {
+      // fetchItemsByPage
+      const start = (page - 1) * storiesPerPage;
+      const end = page * storiesPerPage;
+      const ids = topStoryIds.slice(start, end);
+      return O.fromPromise(fetchItems(ids));
     })
-    .mergeMap(promise => O.fromPromise(promise))
-    .filter(value => !!value)
     .map(topStoriesFetched)
     .share();
 };
