@@ -1,6 +1,9 @@
 import { A, O, Handler } from '../boa';
 import { extract as pathChanged$ } from '../actions/path-changed';
 import { extract as commentsFetched$ } from '../actions/comments-fetched';
+import {
+  extract as pollOptionsFetched$
+} from '../actions/poll-options-fetched';
 import { extract as storyItemFetched$ } from '../actions/story-item-fetched';
 import { extract as topStoriesFetched$ } from '../actions/top-stories-fetched';
 import { extract as userFetched$ } from '../actions/user-fetched';
@@ -19,7 +22,8 @@ const handler: Handler = (
       storiesPerPage: 30,
       items: []
     },
-    comments: {}
+    comments: {},
+    pollOptions: {}
   };
   const currentPageUpdate$ = pathChanged$(action$)
     .map(({ route: { name }, params }) => (state: State): State => {
@@ -45,6 +49,16 @@ const handler: Handler = (
       const newNews = Object.assign({}, news, { items });
       return Object.assign({}, state, { news: newNews });
     });
+  const pollOptionsUpdate$ = pollOptionsFetched$(action$)
+    .map(fetched => (state: State): State => {
+      const { pollOptions } = state;
+      const fetchedObj = fetched.reduce((polls, poll) => {
+        polls[poll.id] = poll;
+        return polls;
+      }, <{ [id: number]: Item; }>{});
+      const newPollOptions = Object.assign({}, pollOptions, fetchedObj);
+      return Object.assign({}, state, { pollOptions: newPollOptions });
+    });
   const userUpdate$ = userFetched$(action$)
     .map(user => (state: State): State => {
       return Object.assign({}, state, { user });
@@ -56,6 +70,7 @@ const handler: Handler = (
     currentPageUpdate$,
     itemUpdate$,
     newsUpdate$,
+    pollOptionsUpdate$,
     userUpdate$
     )
     .scan((state: State, update: (state: State) => State) => update(state))
