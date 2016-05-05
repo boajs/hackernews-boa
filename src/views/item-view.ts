@@ -1,18 +1,19 @@
 import { view as commentView } from '../views/comment';
 import { view as itemView } from '../views/item';
+import { Item } from '../types/hn';
 import { State } from '../types/state';
 
 export type Helpers = any;
 export type View = any;
 
 type ViewState = {
-  allComments: { [id: number]: any; };
-  comments: any[];
+  allComments: { [id: number]: Item; }; // for views/comment
+  comments: Item[]; // for views/comment
   hasComments: boolean;
   hasNoComments: boolean;
   hasPollOptions: boolean;
   hasText: boolean;
-  item: any;
+  item: Item; // for views/item
   pollOptions: { text: string; score: string; }[];
   text: string;
 };

@@ -10,8 +10,8 @@ export type View = any;
 
 type ViewState = {
   by: string;
-  childComments: any[];
-  comments: { [id: number]: any; };
+  childComments: Item[]; // for views/comment (recursive)
+  comments: { [id: number]: Item; }; // for views/comment (recursive)
   hasChildComments: boolean;
   text: string;
   time: string;

@@ -12,7 +12,7 @@ const from = <T>(firebase: Firebase, eventType: string): Observable<T> => {
   });
 }
 
-const fetch = <T>(firebase: Firebase, eventType): Promise<T> => {
+const fetch = <T>(firebase: Firebase, eventType: string): Promise<T> => {
   return new Promise((resolve, reject) => {
     firebase.once(eventType, snapshot => resolve(snapshot.val()), reject);
   });

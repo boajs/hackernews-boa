@@ -1,4 +1,5 @@
 import { view as itemView } from '../views/item';
+import { Item } from '../types/hn';
 import { State } from '../types/state';
 
 export type Helpers = any;
@@ -8,7 +9,7 @@ type ViewState = {
   hasMore: boolean;
   hasNav: boolean;
   hasPrev: boolean;
-  items: any[];
+  items: Item[]; // for views/item
   loadingClass: string;
   moreUrl: string;
   page: number;
