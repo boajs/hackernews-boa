@@ -33,7 +33,7 @@ const viewState = ({ item, index }: State, _: Helpers): ViewState => {
     commentsUrl: '#/item/' + item.id,
     domain: item.type === 'story' && item.url ? domain(item.url) : null,
     hasDomain: item.type === 'story' && !!item.url,
-    hasIndex: typeof index === 'undefined',
+    hasIndex: typeof index !== 'undefined',
     index: index + '.',
     score: item.score + ' points',
     showInfo: item.type === 'story' || item.type === 'poll',
