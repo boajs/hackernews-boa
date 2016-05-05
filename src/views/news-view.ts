@@ -14,6 +14,7 @@ type ViewState = {
   moreUrl: string;
   page: number;
   prevUrl: string;
+  storiesPerPage: number;
 };
 
 const viewState = ({ news }: State, helpers: Helpers): ViewState => {
@@ -26,7 +27,8 @@ const viewState = ({ news }: State, helpers: Helpers): ViewState => {
     loadingClass: (news.items.length === 0 ? '.loading' : ''),
     moreUrl: '#/news/' + (news.page + 1),
     page: news.page,
-    prevUrl: '#/news/' + (news.page - 1)
+    prevUrl: '#/news/' + (news.page - 1),
+    storiesPerPage: news.storiesPerPage
   };
 };
 
@@ -44,7 +46,9 @@ const render = (state: ViewState, helpers: Helpers): View => {
   const { create: h } = helpers;
   return h('div.view.news-view' + state.loadingClass,
     state.items.map((item, index) => {
-      return itemView({ item, index }, helpers);
+      return itemView({
+        item, index: (state.page - 1) * state.storiesPerPage + index + 1
+      }, helpers);
     }).concat([newsNavView(state, helpers)])
   );
 };
