@@ -46,7 +46,7 @@ const headerView = (_: ViewState, helpers: Helpers): View => {
 };
 
 const mainView = (state: ViewState, helpers: Helpers): View => {
-  const views = {
+  const views: { [page: string]: (state: State, helpers: Helpers) => View; } = {
     item: itemView,
     news: newsView,
     user: userView
