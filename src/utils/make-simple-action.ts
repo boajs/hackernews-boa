@@ -1,4 +1,4 @@
-import { A, O } from './boa';
+import { A, O } from '../boa';
 
 export interface Create<T> {
   (data: T): A<T>;
