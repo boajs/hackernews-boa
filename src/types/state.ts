@@ -10,6 +10,7 @@ type State = {
   item?: Item;
   user?: User;
   comments: { [id: number]: Item; };
+  opens: { [id: number]: boolean; };
   pollOptions: { [id: number]: Item; };
 };
 

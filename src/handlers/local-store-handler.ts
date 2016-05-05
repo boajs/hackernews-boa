@@ -5,6 +5,7 @@ import {
   extract as pollOptionsFetched$
 } from '../actions/poll-options-fetched';
 import { extract as storyItemFetched$ } from '../actions/story-item-fetched';
+import { extract as toggleComment$ } from '../actions/toggle-comment';
 import { extract as topStoriesFetched$ } from '../actions/top-stories-fetched';
 import { extract as userFetched$ } from '../actions/user-fetched';
 import { create as state } from '../actions/state-changed';
@@ -23,6 +24,7 @@ const handler: Handler = (
       items: []
     },
     comments: {},
+    opens: {},
     pollOptions: {}
   };
   const currentPageUpdate$ = pathChanged$(action$)
@@ -67,6 +69,13 @@ const handler: Handler = (
       const newPollOptions = Object.assign({}, pollOptions, fetchedObj);
       return Object.assign({}, state, { pollOptions: newPollOptions });
     });
+  const opensUpdate$ = toggleComment$(action$)
+    .map(commentId => (state: State): State => {
+      const { opens } = state;
+      const open = opens[commentId];
+      opens[commentId] = !(typeof open === 'undefined' ? true : open);
+      return Object.assign({}, state, { opens });
+    });
   const userUpdate$ = userFetched$(action$)
     .map(user => (state: State): State => {
       return Object.assign({}, state, { user });
@@ -79,6 +88,7 @@ const handler: Handler = (
     itemUpdate$,
     newsPageUpdate$,
     newsUpdate$,
+    opensUpdate$,
     pollOptionsUpdate$,
     userUpdate$
     )

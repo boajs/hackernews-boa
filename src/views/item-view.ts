@@ -14,12 +14,13 @@ type ViewState = {
   hasPollOptions: boolean;
   hasText: boolean;
   item: Item; // for views/item
+  opens: { [id: number]: boolean; }; // for views/comment
   pollOptions: { text: string; score: string; }[];
   text: string;
 };
 
 const viewState = ({
-  item, comments: allComments, pollOptions: allPollOptions
+  item, comments: allComments, opens, pollOptions: allPollOptions
 }: State, _: Helpers): ViewState => {
   if (!item) return null;
   const hasComments = item.kids && item.kids.length > 0;
@@ -35,6 +36,7 @@ const viewState = ({
     hasPollOptions,
     hasText: item.hasOwnProperty('text'),
     item,
+    opens,
     pollOptions: pollOptions.filter(i => !!i).map(({ text, score }) => {
       return { text, score: score + ' points' };
     }),
@@ -61,7 +63,11 @@ const render = (state: ViewState, helpers: Helpers): View => {
     !state.hasComments
       ? null
       : h('ul.comments', state.comments.map(comment => {
-        return commentView({ comment, comments: state.allComments }, helpers);
+        return commentView({
+          comment,
+          comments: state.allComments,
+          opens: state.opens
+        }, helpers);
       })),
     !state.hasNoComments
       ? null
