@@ -98,7 +98,8 @@ const initTopStoriesFetched: Handler = (
         { params: { page } }, state: State
       ) => {
         const { news: { storiesPerPage } } = state;
-        return { page, storiesPerPage };
+        const pageNumber = +(typeof page === 'undefined' ? '1' : page);
+        return { page: pageNumber, storiesPerPage };
       })
       .withLatestFrom(topStoryIdsUpdated$, (
         { page, storiesPerPage }, topStoryIds: number[]
