@@ -1,0 +1,230 @@
+html,
+body {
+  font-family: Verdana, sans-serif;
+  font-size: 13px;
+  height: 100%;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+a {
+  color: #000000;
+  cursor: pointer;
+  text-decoration: none;
+}
+@media screen and (max-width: 700px) {
+  html,
+  body {
+    margin: 0;
+  }
+}
+#app > #wrapper {
+  background-color: #f6f6ef;
+  position: relative;
+  width: 85%;
+  min-height: 80px;
+  margin: 0 auto;
+}
+#app > #wrapper > #header {
+  background-color: #ff6600;
+  height: 24px;
+  position: relative;
+}
+#app > #wrapper > #header > #yc {
+  border: 1px solid #ffffff;
+  margin: 2px;
+  display: inline-block;
+  vertical-align: middle;
+}
+#app > #wrapper > #header > #yc > img {
+  vertical-align: middle;
+}
+#app > #wrapper > #header > h1 {
+  font-weight: bold;
+  font-size: 13px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+}
+#app > #wrapper > #header > .source {
+  color: #ffffff;
+  font-size: 11px;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+#app > #wrapper > #header > .source > a {
+  color: #ffffff;
+}
+#app > #wrapper > #header > .source > a:hover {
+  text-decoration: underline;
+}
+#app > #wrapper > .view {
+  position: absolute;
+  background-color: #f6f6ef;
+  width: 100%;
+  transition: opacity .2s ease;
+  box-sizing: border-box;
+  padding: 8px 20px;
+}
+#app > #wrapper > .view.v-enter,
+#app > #wrapper > .view.v-leave {
+  opacity: 0;
+}
+#app > #wrapper > .item-view > .item {
+  padding: 2px 0 2px 40px;
+  position: relative;
+  transition: background-color 0.2s ease;
+  padding-left: 0;
+  margin-bottom: 30px;
+}
+#app > #wrapper > .item-view > .item > p {
+  margin: 2px 0;
+}
+#app > #wrapper > .item-view > .item > p > .title:visited {
+  color: #828282;
+}
+#app > #wrapper > .item-view > .item > .index {
+  color: #828282;
+  position: absolute;
+  width: 30px;
+  text-align: right;
+  left: 0;
+  top: 4px;
+}
+#app > #wrapper > .item-view > .item > p > .domain,
+#app > #wrapper > .item-view > .item > .subtext {
+  font-size: 11px;
+  color: #828282;
+}
+#app > #wrapper > .item-view > .item > p > .domain > span > a,
+#app > #wrapper > .item-view > .item > .subtext > span > a {
+  color: #828282;
+}
+#app > #wrapper > .item-view > .item > .subtext > span > a:hover {
+  text-decoration: underline;
+}
+#app > #wrapper > .item-view > .item > .index {
+  display: none;
+}
+#app > #wrapper > .item-view > .itemtext {
+  color: #828282;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+#app > #wrapper > .item-view > .itemtext > p {
+  margin: 10px 0;
+}
+#app > #wrapper > .item-view > .poll-options {
+  margin-left: 30px;
+  margin-bottom: 40px;
+}
+#app > #wrapper > .item-view > .poll-options > li {
+  margin: 12px 0;
+}
+#app > #wrapper > .item-view > .poll-options > li > p {
+  margin: 8px 0;
+}
+#app > #wrapper > .item-view > .poll-options > li > .subtext {
+  color: #828282;
+  font-size: 11px;
+}
+#app > #wrapper > .item-view > ul.comments li > .comhead {
+  color: #828282;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+#app > #wrapper > .item-view > ul.comments li > .comhead > a {
+  color: #828282;
+}
+#app > #wrapper > .item-view > ul.comments li > .comhead > a:hover {
+  text-decoration: underline;
+}
+#app > #wrapper > .item-view > ul.comments li > .comhead > .toggle {
+  margin-right: 4px;
+}
+#app > #wrapper > .item-view > ul.comments li > .comment-content {
+  margin: 0 0 16px 24px;
+  word-wrap: break-word;
+}
+#app > #wrapper > .item-view > ul.comments li > .comment-content > code {
+  white-space: pre-wrap;
+}
+#app > #wrapper > .item-view > ul.comments li > .child-comments {
+  margin: 8px 0 8px 22px;
+}
+#app > #wrapper > .news-view {
+  padding-left: 5px;
+  padding-right: 15px;
+}
+#app > #wrapper > .news-view.loading:before {
+  content: "Loading...";
+  position: absolute;
+  top: 16px;
+  left: 20px;
+}
+#app > #wrapper > .news-view > .nav {
+  padding: 10px 10px 10px 40px;
+  margin-top: 10px;
+  border-top: 2px solid #f60;
+}
+#app > #wrapper > .news-view > .nav > a {
+  margin-right: 10px;
+}
+#app > #wrapper > .news-view > .nav > a:hover {
+  text-decoration: underline;
+}
+#app > #wrapper > .news-view > .item {
+  padding: 2px 0 2px 40px;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+#app > #wrapper > .news-view > .item > p {
+  margin: 2px 0;
+}
+#app > #wrapper > .news-view > .item > p > .title:visited {
+  color: #828282;
+}
+#app > #wrapper > .news-view > .item > .index {
+  color: #828282;
+  position: absolute;
+  width: 30px;
+  text-align: right;
+  left: 0;
+  top: 4px;
+}
+#app > #wrapper > .news-view > .item > p > .domain,
+#app > #wrapper > .news-view > .item > .subtext {
+  font-size: 11px;
+  color: #828282;
+}
+#app > #wrapper > .news-view > .item > p > .domain > span > a,
+#app > #wrapper > .news-view > .item > .subtext > span > a {
+  color: #828282;
+}
+#app > #wrapper > .news-view > .item > .subtext > span > a:hover {
+  text-decoration: underline;
+}
+#app > #wrapper > .user-view {
+  color: #828282;
+}
+#app > #wrapper > .user-view > ul > li {
+  margin: 5px 0;
+}
+#app > #wrapper > .user-view > ul > li > .label {
+  display: inline-block;
+  min-width: 60px;
+}
+#app > #wrapper > .user-view > ul > li > .about {
+  margin-top: 1em;
+}
+#app > #wrapper > .user-view > .links > a {
+  text-decoration: underline;
+}
+@media screen and (max-width: 700px) {
+  #app > #wrapper {
+    width: 100%;
+  }
+}
